@@ -14,7 +14,7 @@ function repair_wheel {
 
 yum install -y wget
 yum install -y zlib-devel
-yum install -y libpng-dev
+yum install -y libpng-devel
 
 
 CMAKE_DIR="/cmk"
