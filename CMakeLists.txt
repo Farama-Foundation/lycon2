@@ -79,7 +79,11 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 
 # The Python extension
 if (LYCON_BUILD_PYTHON)
-  find_package(Python3 COMPONENTS Interpreter Development)
+  find_package(Python3 REQUIRED COMPONENTS Interpreter Development NumPy)
+
+  message("Python3_INCLUDE_DIRES:${Python3_INCLUDE_DIRS}")
+  message("Python3_NUMPY_INCLUDE_DIRS:${Python3_NUMPY_INCLUDE_DIRS}")
+  message("Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
 
   include_directories(${Python3_INCLUDE_DIRS} ${Python3_NUMPY_INCLUDE_DIRS})
 
