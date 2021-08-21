@@ -14,6 +14,7 @@ function repair_wheel {
 
 yum install -y wget
 yum install -y zlib-devel
+yum install -y libjpeg-devel
 yum install -y libpng-devel
 
 
