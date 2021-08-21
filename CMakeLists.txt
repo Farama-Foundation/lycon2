@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.12)
 
 project(lycon)
 
@@ -79,9 +79,9 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 
 # The Python extension
 if (LYCON_BUILD_PYTHON)
-  include(cmake/LocatePythonLibs.cmake)
+  find_package(Python3 COMPONENTS Interpreter Development)
 
-  include_directories(${PYTHON_INCLUDE_DIR} ${NUMPY_INCLUDE_DIR})
+  include_directories(${Python3_INCLUDE_DIRS} ${Python3_NUMPY_INCLUDE_DIRS})
 
   add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
   target_link_libraries(pycon lycon ${PYTHON_LIB_PATH})
