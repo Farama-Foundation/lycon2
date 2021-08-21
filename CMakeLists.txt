@@ -79,9 +79,9 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 
 # The Python extension
 if (LYCON_BUILD_PYTHON)
-  find_package(Python3 COMPONENTS Interpreter Development)
+  find_package(Python COMPONENTS Interpreter Development)
 
-  include_directories(${Python3_INCLUDE_DIRS} ${Python3_NUMPY_INCLUDE_DIRS})
+  include_directories(${Python_INCLUDE_DIRS} ${Python_NUMPY_INCLUDE_DIRS})
 
   add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
   target_link_libraries(pycon lycon ${PYTHON_LIB_PATH})
