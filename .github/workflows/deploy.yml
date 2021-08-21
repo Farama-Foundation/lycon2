@@ -22,7 +22,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Build package
       run: |
-        echo "pythonLocation=$pythonLocation"
+        echo pythonLocation=$pythonLocation
         which python
         pip install wheel numpy twine
         chmod +x build-wheels.sh
