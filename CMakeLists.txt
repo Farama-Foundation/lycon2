@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 
 project(lycon)
 
@@ -79,16 +79,13 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 
 # The Python extension
 if (LYCON_BUILD_PYTHON)
-  find_package(Python3 COMPONENTS Interpreter Development)
+  include(cmake/LocatePythonLibs.cmake)
 
-  message("Python3_INCLUDE_DIRES:${Python3_INCLUDE_DIRS}")
-  message("Python3_NUMPY_INCLUDE_DIRS:${Python3_NUMPY_INCLUDE_DIRS}")
-  message("Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
-
-  include_directories(${Python3_INCLUDE_DIRS})
+  include_directories(${PYTHON_INCLUDE_DIR} ${NUMPY_INCLUDE_DIR})
 
   add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
-  target_link_libraries(pycon lycon ${Python3_LIBRARY_DIRS})
+  target_link_libraries(pycon lycon ${PYTHON_LIB_PATH})
+
   # NOTE(saumitro): Even on macOS, Python expects the ".so" suffix rather than ".dylib"
   set_target_properties(pycon PROPERTIES PREFIX "_" SUFFIX ".so" OUTPUT_NAME "lycon")
 endif()
