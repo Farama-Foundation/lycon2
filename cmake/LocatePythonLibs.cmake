@@ -1,6 +1,10 @@
 # Python executable
 if (NOT DEFINED ${PYTHON_BIN})
-  find_program(PYTHON_BIN python)
+  if (DEFINED ENV{pythonlocation})
+    find_program(PYTHON_BIN python
+                 PATHS $ENV{pythonlocation})
+  else()
+    find_program(PYTHON_BIN python)
 endif()
 message(STATUS "Python binary: ${PYTHON_BIN}")
 
@@ -20,7 +24,7 @@ if (NOT DEFINED ${PYTHON_LIB_PATH})
                   -c "from distutils.sysconfig import get_config_var; print(get_config_var('LIBDIR'))"
                   OUTPUT_VARIABLE PYTHON_LIB_DIR
                   OUTPUT_STRIP_TRAILING_WHITESPACE)
-  message(STATUS "Python library path: ${PYTHON_LIB_DIR}")
+  message(STATUS "Python library path#1: ${PYTHON_LIB_DIR}")
 
   # Get the Python version
   execute_process(COMMAND ${PYTHON_BIN} -c "from distutils.sysconfig import get_python_version; print(get_python_version())"
@@ -47,7 +51,7 @@ if (NOT DEFINED ${PYTHON_LIB_PATH})
                  PATHS ${PYTHON_LIB_DIR})
   endif()
 endif()
-message(STATUS "Python library path: ${PYTHON_LIB_PATH}")
+message(STATUS "Python library path#2: ${PYTHON_LIB_PATH}")
 
 # NumPy include path
 if (NOT DEFINED ${NUMPY_INCLUDE_DIR})
