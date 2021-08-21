@@ -6,9 +6,7 @@ if (NOT DEFINED ${PYTHON_BIN})
   message(STATUS "PYTHON_BIN not defined")
   if (DEFINED ENV{PYTHON_LOCATION})
     message($ENV{PYTHON_LOCATION})
-    find_program(PYTHON_BIN python
-                 PATHS $ENV{PYTHON_LOCATION}
-                 NO_DEFAULT_PATH)
+    set(PYTHON_BIN $ENV{PYTHON_LOCATION}/bin/python)
     message(${PYTHON_BIN})
   else()
     message(STATUS "pythonLocation not defined")
