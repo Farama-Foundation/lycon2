@@ -22,10 +22,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Build package
       run: |
+        echo "pythonLocation=$pythonLocation"
         which python
-        which python3
-        which pip
-        which pip3
         pip install wheel numpy twine
         chmod +x build-wheels.sh
         touch requirements.txt
@@ -42,7 +40,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        python-version: ['3.6', '3.8']
+        python-version: ['3.6']
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}

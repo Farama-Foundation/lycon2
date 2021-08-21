@@ -1,10 +1,10 @@
 # Python executable
 if (NOT DEFINED ${PYTHON_BIN})
   if (DEFINED ENV{pythonlocation})
-    message($ENV{pythonlocation})
+    message($ENV{pythonLocation})
     find_program(PYTHON_BIN python
-                 PATHS $ENV{pythonlocation}
-		 NO_DEFAULT_PATH)
+                 PATHS $ENV{pythonLocation}
+                 NO_DEFAULT_PATH)
     message(${PYTHON_BIN})
   else()
     find_program(PYTHON_BIN python)
