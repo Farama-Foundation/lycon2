@@ -5,6 +5,7 @@ if (NOT DEFINED ${PYTHON_BIN})
                  PATHS $ENV{pythonlocation})
   else()
     find_program(PYTHON_BIN python)
+  endif()
 endif()
 message(STATUS "Python binary: ${PYTHON_BIN}")
 
