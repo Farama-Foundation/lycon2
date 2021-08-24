@@ -79,10 +79,12 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 
 # The Python extension
 if (LYCON_BUILD_PYTHON)
+  message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
   find_package(Python3 COMPONENTS Interpreter Development.Module REQUIRED)
   # find numpy
   execute_process ( COMMAND ${Python3_EXECUTABLE} -c "import numpy; print(numpy.get_include())" OUTPUT_VARIABLE Python3_NUMPY_INCLUDE_DIRS OUTPUT_STRIP_TRAILING_WHITESPACE)
 
+  message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
   message(STATUS "Python3_INCLUDE_DIRES:${Python3_INCLUDE_DIRS}")
   message(STATUS "Python3_NUMPY_INCLUDE_DIRS:${Python3_NUMPY_INCLUDE_DIRS}")
   message(STATUS "Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
