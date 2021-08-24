@@ -50,7 +50,8 @@ class LyconBuilder(build_ext):
         Run cmake.
         """
         print('Source path is {}'.format(self.source_path))
-        self.execute([self.cmake_path, self.source_path])
+        arg = f"-DPython3_EXECUTABLE={sys.executable}"
+        self.execute([self.cmake_path, self.source_path, arg])
 
     def make(self, parallel=True):
         """

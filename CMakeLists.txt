@@ -79,19 +79,19 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 
 # The Python extension
 if (LYCON_BUILD_PYTHON)
-  find_package(Python COMPONENTS Interpreter Development REQUIRED)
+  find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
   # find numpy
-  execute_process ( COMMAND ${Python_EXECUTABLE} -c "import numpy; print(numpy.get_include())" OUTPUT_VARIABLE Python_NUMPY_INCLUDE_DIRS OUTPUT_STRIP_TRAILING_WHITESPACE)
+  execute_process ( COMMAND ${Python3_EXECUTABLE} -c "import numpy; print(numpy.get_include())" OUTPUT_VARIABLE Python3_NUMPY_INCLUDE_DIRS OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  message(STATUS "Python_INCLUDE_DIRES:${Python_INCLUDE_DIRS}")
-  message(STATUS "Python_NUMPY_INCLUDE_DIRS:${Python_NUMPY_INCLUDE_DIRS}")
-  message(STATUS "Python_LIBRARY_DIRS:${Python_LIBRARY_DIRS}")
+  message(STATUS "Python3_INCLUDE_DIRES:${Python3_INCLUDE_DIRS}")
+  message(STATUS "Python3_NUMPY_INCLUDE_DIRS:${Python3_NUMPY_INCLUDE_DIRS}")
+  message(STATUS "Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
 
-  include_directories(${Python_INCLUDE_DIRS})
-  include_directories(${Python_NUMPY_INCLUDE_DIRS})
+  include_directories(${Python3_INCLUDE_DIRS})
+  include_directories(${Python3_NUMPY_INCLUDE_DIRS})
 
   add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
-  target_link_libraries(pycon lycon ${Python_LIBRARY_DIRS})
+  target_link_libraries(pycon lycon ${Python3_LIBRARY_DIRS})
 
   # NOTE(saumitro): Even on macOS, Python expects the ".so" suffix rather than ".dylib"
   set_target_properties(pycon PROPERTIES PREFIX "_" SUFFIX ".so" OUTPUT_NAME "lycon")
