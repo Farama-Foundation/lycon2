@@ -79,13 +79,16 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 
 # The Python extension
 if (LYCON_BUILD_PYTHON)
-  find_package(Python3 COMPONENTS Interpreter Development)
+  find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+  # find numpy
+  execute_process ( COMMAND ${Python3_EXECUTABLE} -c "import numpy; print(numpy.get_include())" OUTPUT_VARIABLE Python3_NUMPY_INCLUDE_DIRS OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-  message("Python3_INCLUDE_DIRES:${Python3_INCLUDE_DIRS}")
-  message("Python3_NUMPY_INCLUDE_DIRS:${Python3_NUMPY_INCLUDE_DIRS}")
-  message("Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
+  message(STATUS "Python3_INCLUDE_DIRES:${Python3_INCLUDE_DIRS}")
+  message(STATUS "Python3_NUMPY_INCLUDE_DIRS:${Python3_NUMPY_INCLUDE_DIRS}")
+  message(STATUS "Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
 
   include_directories(${Python3_INCLUDE_DIRS})
+  include_directories(${Python3_NUMPY_INCLUDE_DIRS})
 
   add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
   target_link_libraries(pycon lycon ${Python3_LIBRARY_DIRS})
