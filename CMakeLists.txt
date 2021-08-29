@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.18)
 
 project(lycon)
 
@@ -90,9 +90,7 @@ if (LYCON_BUILD_PYTHON)
   message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
   message(STATUS "Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
   message(STATUS "Python3_RUNTIME_LIBRARY_DIRS:${Python3_RUNTIME_LIBRARY_DIRS}")
-  message(STATUS "Python3_LIBRARY:${Python3_LIBRARY}")
   message(STATUS "Python3_LIBRARIES:${Python3_LIBRARIES}")
-  message(STATUS "Python3_INCLUDE_DIR:${Python3_INCLUDE_DIR}")
   message(STATUS "Python3_INCLUDE_DIRS:${Python3_INCLUDE_DIRS}")
   message(STATUS "Python3_NUMPY_INCLUDE_DIRS:${Python3_NumPy_INCLUDE_DIRS}")
 
