@@ -84,15 +84,18 @@ if (LYCON_BUILD_PYTHON)
 
   message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
   message(STATUS "Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
-  message(STATUS "Python3_LIBRARY_DIRS-2:${Python3_LIBRARIES}")
-  message(STATUS "Python3_INCLUDE_DIRES:${Python3_INCLUDE_DIRS}")
+  message(STATUS "Python3_RUNTIME_LIBRARY_DIRS:${Python3_RUNTIME_LIBRARY_DIRS}")
+  message(STATUS "Python3_LIBRARY:${Python3_LIBRARY}")
+  message(STATUS "Python3_LIBRARIES:${Python3_LIBRARIES}")
+  message(STATUS "Python3_INCLUDE_DIR:${Python3_INCLUDE_DIR}")
+  message(STATUS "Python3_INCLUDE_DIRS:${Python3_INCLUDE_DIRS}")
   message(STATUS "Python3_NUMPY_INCLUDE_DIRS:${Python3_NumPy_INCLUDE_DIRS}")
 
   include_directories(${Python3_INCLUDE_DIRS})
   include_directories(${Python3_NumPy_INCLUDE_DIRS})
 
   add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
-  target_link_libraries(pycon PRIVATE lycon Python3::Python)
+  target_link_libraries(pycon lycon ${Python3_LIBRARY_DIRS})
 
   # NOTE(saumitro): Even on macOS, Python expects the ".so" suffix rather than ".dylib"
   set_target_properties(pycon PROPERTIES PREFIX "_" SUFFIX ".so" OUTPUT_NAME "lycon")
