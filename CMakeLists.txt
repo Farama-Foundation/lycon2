@@ -80,7 +80,7 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 # The Python extension
 if (LYCON_BUILD_PYTHON)
   message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
-  find_package(Python3 COMPONENTS Interpreter Development NumPy REQUIRED)
+  find_package(Python3 COMPONENTS Interpreter Development.Module NumPy REQUIRED)
 
   message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
   message(STATUS "Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
@@ -95,7 +95,7 @@ if (LYCON_BUILD_PYTHON)
   include_directories(${Python3_NumPy_INCLUDE_DIRS})
 
   add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
-  target_link_libraries(pycon lycon ${Python3_LIBRARY_DIRS})
+  target_link_libraries(pycon lycon ${Python3_LIBRARIES})
 
   # NOTE(saumitro): Even on macOS, Python expects the ".so" suffix rather than ".dylib"
   set_target_properties(pycon PROPERTIES PREFIX "_" SUFFIX ".so" OUTPUT_NAME "lycon")
