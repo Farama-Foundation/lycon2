@@ -80,7 +80,12 @@ target_link_libraries(lycon ${JPEG_LIBRARY})
 # The Python extension
 if (LYCON_BUILD_PYTHON)
   message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
-  find_package(Python3 COMPONENTS Interpreter Development Development.Module NumPy REQUIRED)
+  if (UNIX AND NOT APPLE)
+    find_package(Python3 COMPONENTS Interpreter Development.Module NumPy REQUIRED)
+  endif ()
+  if (APPLE)
+    find_package(Python3 COMPONENTS Interpreter Development NumPy REQUIRED)
+  endif ()
 
   message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
   message(STATUS "Python3_LIBRARY_DIRS:${Python3_LIBRARY_DIRS}")
