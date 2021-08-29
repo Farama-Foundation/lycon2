@@ -92,7 +92,8 @@ if (LYCON_BUILD_PYTHON)
   include_directories(${Python3_NumPy_INCLUDE_DIRS})
 
   add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
-  target_link_libraries(pycon lycon PRIVATE Python3::Python)
+  target_link_libraries(lycon PRIVATE Python3::Python)
+  target_link_libraries(pycon PRIVATE Python3::Python)
 
   # NOTE(saumitro): Even on macOS, Python expects the ".so" suffix rather than ".dylib"
   set_target_properties(pycon PROPERTIES PREFIX "_" SUFFIX ".so" OUTPUT_NAME "lycon")
