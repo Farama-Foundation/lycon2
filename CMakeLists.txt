@@ -78,7 +78,7 @@ include_directories(${JPEG_INCLUDE_DIR})
 target_link_libraries(lycon2 ${JPEG_LIBRARY})
 
 # The Python extension
-if (FALSE)
+if (LYCON2_BUILD_PYTHON)
   message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
   if (UNIX AND NOT APPLE)
     find_package(Python3 COMPONENTS Interpreter Development.Module NumPy REQUIRED)
