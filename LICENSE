@@ -1,4 +1,6 @@
-Lycon is provided under a split license:
+Lycon2 is provided under a split license:
+
+  * Lycon2 is a modernized fork of Lycon maintained by the PettingZoo team.
 
   * A significant portion of Lycon is derived directly from OpenCV, which is
     provided under the 3-clause BSD license.

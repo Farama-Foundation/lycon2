@@ -1,4 +1,4 @@
-import _lycon
+import _lycon2
 
 import itertools
 
@@ -8,7 +8,7 @@ def load(path, mode=Decode.UNCHANGED):
     """
     Loads and returns the image at the given path as a numpy ndarray.
     """
-    return _lycon.load(path, mode)
+    return _lycon2.load(path, mode)
 
 def save(path, image, options=None):
     """
@@ -21,7 +21,7 @@ def save(path, image, options=None):
     if options is not None:
         # Convert to a flat (key_1, value_1, key_2, value_2, ...) list
         options = list(itertools.chain(*options.items()))
-    _lycon.save(path, image, options)
+    _lycon2.save(path, image, options)
 
 def resize(image, width, height, interpolation=Interpolation.LINEAR, output=None):
     """
@@ -35,7 +35,7 @@ def resize(image, width, height, interpolation=Interpolation.LINEAR, output=None
         assert output.dtype == image.dtype
         assert len(output.shape) == len(image.shape)
         assert output.shape[:2] == (height, width)
-    return _lycon.resize(image, (width, height), interpolation, output)
+    return _lycon2.resize(image, (width, height), interpolation, output)
 
 def get_supported_extensions():
     """

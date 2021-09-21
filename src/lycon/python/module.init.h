@@ -10,9 +10,9 @@ PyObject* get_pycon_error()
 }
 } // namespace lycon
 
-static const char* module_name = "_lycon";
+static const char* module_name = "_lycon2";
 
-static const char* module_docstring = "Lycon image library";
+static const char* module_docstring = "Lycon2 image library";
 
 static PyMethodDef module_methods[] = {
     DECLARE_METHOD(load), DECLARE_METHOD(save), DECLARE_METHOD(resize), {NULL, NULL, 0, NULL}};
@@ -34,12 +34,12 @@ static int pycon_clear(PyObject* m)
 static struct PyModuleDef module_defs = {PyModuleDef_HEAD_INIT, module_name, NULL, 0, module_methods, NULL,
                                          pycon_traverse,        pycon_clear, NULL};
 
-#define MODULE_INIT_SIGNATURE PyMODINIT_FUNC PyInit__lycon(void)
+#define MODULE_INIT_SIGNATURE PyMODINIT_FUNC PyInit__lycon2(void)
 #define MODULE_INIT_RETURN_ON_ERROR NULL
 
 #else
 
-#define MODULE_INIT_SIGNATURE PyMODINIT_FUNC init_lycon(void)
+#define MODULE_INIT_SIGNATURE PyMODINIT_FUNC init_lycon2(void)
 #define MODULE_INIT_RETURN_ON_ERROR
 
 #endif
@@ -62,7 +62,7 @@ MODULE_INIT_SIGNATURE
     // Create exception
     PyObject* module_dict = PyModule_GetDict(module);
     PyDict_SetItemString(module_dict, "__version__", PyString_FromString(LYCON_VERSION_STRING));
-    pycon_error = PyErr_NewException((char*)("_lycon.PyconError"), NULL, NULL);
+    pycon_error = PyErr_NewException((char*)("_lycon2.PyconError"), NULL, NULL);
 
 #if PY_MAJOR_VERSION >= 3
     return module;

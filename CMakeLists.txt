@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.18)
 
-project(lycon)
+project(lycon2)
 
-include(cmake/LyconUtils.cmake)
+include(cmake/Lycon2Utils.cmake)
 
-set(LYCON_SOURCES
+set(LYCON2_SOURCES
   src/lycon/io/base.cc
   src/lycon/io/bitstream.cc
   src/lycon/io/exif.cc
@@ -34,7 +34,7 @@ set(LYCON_SOURCES
   src/lycon/util/tls.cc
 )
 
-set(LYCON_PYTHON_SOURCES
+set(LYCON2_PYTHON_SOURCES
   src/lycon/python/interop.cc
   src/lycon/python/module.cc
 )
@@ -42,43 +42,43 @@ set(LYCON_PYTHON_SOURCES
 set(CMAKE_MACOSX_RPATH TRUE)
 
 # Build options
-lycon_option(LYCON_BUILD_STATIC "Build Lycon as a static library" ON)
-lycon_option(LYCON_BUILD_PYTHON "Build the Python native extension" ON)
-lycon_option(LYCON_NUMPY_ALLOCATOR_BY_DEFAULT "Use the NumPy allocator by default" ${LYCON_BUILD_PYTHON})
+lycon2_option(LYCON2_BUILD_STATIC "Build Lycon2 as a static library" ON)
+lycon2_option(LYCON2_BUILD_PYTHON "Build the Python native extension" ON)
+lycon2_option(LYCON2_NUMPY_ALLOCATOR_BY_DEFAULT "Use the NumPy allocator by default" ${LYCON2_BUILD_PYTHON})
 # Enabling this can avoid libstdc++ compatibility issues under environments like Conda
-lycon_option(LYCON_STATIC_LIBSTDCPP "Statically link against libstdc++" ON IF NOT APPLE)
+lycon2_option(LYCON2_STATIC_LIBSTDCPP "Statically link against libstdc++" ON IF NOT APPLE)
 
 include_directories(src)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -march=native -O3 -fPIC -DNDEBUG -pthread")
-if(LYCON_STATIC_LIBSTDCPP)
+if(LYCON2_STATIC_LIBSTDCPP)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++")
 endif()
 
 # If enabled, use the NumPy allocator as the default Mat allocator
-if(LYCON_NUMPY_ALLOCATOR_BY_DEFAULT)
-  add_definitions(-DLYCON_USE_NUMPY_ALLOCATOR_BY_DEFAULT)
+if(LYCON2_NUMPY_ALLOCATOR_BY_DEFAULT)
+  add_definitions(-DLYCON2_USE_NUMPY_ALLOCATOR_BY_DEFAULT)
 endif()
 
 # The main library
-if(LYCON_BUILD_STATIC)
-  add_library(lycon STATIC ${LYCON_SOURCES})
+if(LYCON2_BUILD_STATIC)
+  add_library(lycon2 STATIC ${LYCON2_SOURCES})
 else()
-  add_library(lycon SHARED ${LYCON_SOURCES})
+  add_library(lycon2 SHARED ${LYCON2_SOURCES})
 endif()
 
 # LibPNG
 find_package(PNG REQUIRED)
 include_directories(${PNG_INCLUDE_DIR})
-target_link_libraries(lycon ${PNG_LIBRARY})
+target_link_libraries(lycon2 ${PNG_LIBRARY})
 
 # LibJPEG
 find_package(JPEG REQUIRED)
 include_directories(${JPEG_INCLUDE_DIR})
-target_link_libraries(lycon ${JPEG_LIBRARY})
+target_link_libraries(lycon2 ${JPEG_LIBRARY})
 
 # The Python extension
-if (LYCON_BUILD_PYTHON)
+if (FALSE)
   message(STATUS "Python3_EXECUTABLE:${Python3_EXECUTABLE}")
   if (UNIX AND NOT APPLE)
     find_package(Python3 COMPONENTS Interpreter Development.Module NumPy REQUIRED)
@@ -97,9 +97,9 @@ if (LYCON_BUILD_PYTHON)
   include_directories(${Python3_INCLUDE_DIRS})
   include_directories(${Python3_NumPy_INCLUDE_DIRS})
 
-  add_library(pycon SHARED ${LYCON_PYTHON_SOURCES})
-  target_link_libraries(pycon lycon ${Python3_LIBRARIES})
+  add_library(pycon2 SHARED ${LYCON2_PYTHON_SOURCES})
+  target_link_libraries(pycon2 lycon2 ${Python3_LIBRARIES})
 
   # NOTE(saumitro): Even on macOS, Python expects the ".so" suffix rather than ".dylib"
-  set_target_properties(pycon PROPERTIES PREFIX "_" SUFFIX ".so" OUTPUT_NAME "lycon")
+  set_target_properties(pycon2 PROPERTIES PREFIX "_" SUFFIX ".so" OUTPUT_NAME "lycon2")
 endif()

@@ -1,5 +1,5 @@
 import cv2
-import lycon
+import lycon2
 import PIL
 import skimage.io
 import skimage.transform
@@ -37,7 +37,7 @@ def benchmark_read(path):
         infile.read()
     msg = lambda tag: '[READ ({})] {}'.format(path.split('.')[-1], tag)
     benchmark(
-        (msg('Lycon'), lambda: lycon.load(path)),
+        (msg('Lycon2'), lambda: lycon2.load(path)),
         (msg('OpenCV'), lambda: cv2.imread(path)),
         (msg('PIL'), lambda: np.asarray(PIL.Image.open(path))),
         (msg('SKImage'), lambda: skimage.io.imread(path)),
@@ -45,10 +45,10 @@ def benchmark_read(path):
 
 def benchmark_write(img):
     for ext in ('png', 'jpg'):
-        output = '/tmp/lycon_test.' + ext
+        output = '/tmp/lycon2_test.' + ext
         msg = lambda tag : '[WRITE ({})] {}'.format(ext, tag)
         benchmark(
-            (msg('Lycon'), lambda: lycon.save(output, img)),
+            (msg('Lycon2'), lambda: lycon2.save(output, img)),
             (msg('OpenCV'), lambda: cv2.imwrite(output, img)),
             (msg('PIL'), lambda: PIL.Image.fromarray(img).save(output)),
             (msg('SKImage'), lambda: skimage.io.imsave(output, img)),
@@ -59,30 +59,30 @@ def benchmark_resize(img):
     new_sizes = [(2*w, 2*h), (int(w/2), int(h/2))]
     interpolations = {
         'nearest':{
-            'Lycon': lycon.Interpolation.NEAREST,
+            'Lycon2': lycon2.Interpolation.NEAREST,
             'OpenCV': cv2.INTER_NEAREST,
             'PIL': PIL.Image.NEAREST,
             'SKImage': 0
         },
         'bilinear':{
-            'Lycon': lycon.Interpolation.LINEAR,
+            'Lycon2': lycon2.Interpolation.LINEAR,
             'OpenCV': cv2.INTER_LINEAR,
             'PIL': PIL.Image.BILINEAR,
             'SKImage': 1
         },
         'bicubic':{
-            'Lycon': lycon.Interpolation.CUBIC,
+            'Lycon2': lycon2.Interpolation.CUBIC,
             'OpenCV': cv2.INTER_CUBIC,
             'PIL': PIL.Image.BICUBIC,
             'SKImage': 3
         },
         'lanczos':{
-            'Lycon': lycon.Interpolation.LANCZOS,
+            'Lycon2': lycon2.Interpolation.LANCZOS,
             'OpenCV': cv2.INTER_LANCZOS4,
             'PIL': PIL.Image.LANCZOS,
         },
         'area':{
-            'Lycon': lycon.Interpolation.AREA,
+            'Lycon2': lycon2.Interpolation.AREA,
             'OpenCV': cv2.INTER_AREA,
         }
     }
@@ -92,7 +92,7 @@ def benchmark_resize(img):
             modes = interpolations[interp]
             op = lambda tag, func: (msg(tag), lambda: func(modes[tag])) if tag in modes else None
             benchmark(*filter(None,[
-                op('Lycon', lambda i: lycon.resize(img, width=w, height=h, interpolation=i)),
+                op('Lycon2', lambda i: lycon2.resize(img, width=w, height=h, interpolation=i)),
                 op('OpenCV', lambda i: cv2.resize(img, (w, h), interpolation=i)),
                 op('PIL', lambda i: np.asarray(PIL.Image.fromarray(img).resize((w, h), i))),
                 op('SKImage', lambda i: skimage.transform.resize(img, (h, w), order=i))

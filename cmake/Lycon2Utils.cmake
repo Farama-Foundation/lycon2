@@ -1,9 +1,9 @@
 # Provides an option that the user can optionally select.
 # Can accept condition to control when option is available for user.
 # Usage:
-#   lycon_option(<option_variable> "help string describing the option" <initial value or boolean expression> [IF <condition>])
+#   lycon2_option(<option_variable> "help string describing the option" <initial value or boolean expression> [IF <condition>])
 # Based on OCV_OPTION in OpenCVUtils.cmake.
-macro(LYCON_OPTION variable description value)
+macro(LYCON2_OPTION variable description value)
   set(__value ${value})
   set(__condition "")
   set(__varname "__value")

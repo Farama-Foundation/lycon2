@@ -1,5 +1,5 @@
 import cv2
-import lycon
+import lycon2
 
 import hashlib
 import numpy as np
@@ -28,7 +28,7 @@ def filehash(path):
 class TestAgainstOpenCV(unittest.TestCase):
 
     def setUp(self):
-        self.temp_path = tempfile.mkdtemp(prefix='lycon_test_')
+        self.temp_path = tempfile.mkdtemp(prefix='lycon2_test_')
 
     def tearDown(self):
         shutil.rmtree(self.temp_path)
@@ -38,25 +38,25 @@ class TestAgainstOpenCV(unittest.TestCase):
 
     def test_save(self):
         img = random_rgb_image()
-        for extension in lycon.get_supported_extensions():
+        for extension in lycon2.get_supported_extensions():
             mkpath = lambda name : self.get_path('{}.{}'.format(name, extension))
-            # Write using Lycon
-            lycon.save(mkpath('opencv'), img)
+            # Write using Lycon2
+            lycon2.save(mkpath('opencv'), img)
             # Write using OpenCV
-            cv2.imwrite(mkpath('lycon'), rgb_bgr(img))
-            self.assertEqual(filehash(mkpath('opencv')), filehash(mkpath('lycon')))
+            cv2.imwrite(mkpath('lycon2'), rgb_bgr(img))
+            self.assertEqual(filehash(mkpath('opencv')), filehash(mkpath('lycon2')))
 
     def test_load(self):
         img = random_rgb_image()
-        for extension in lycon.get_supported_extensions():
+        for extension in lycon2.get_supported_extensions():
             mkpath = lambda name : self.get_path('{}.{}'.format(name, extension))
             # Write using OpenCV
             cv2.imwrite(mkpath('opencv'), img)
             # Read using OpenCV
             cv_img = cv2.imread(mkpath('opencv'))
-            # Read using Lycon
-            lycon_img = rgb_bgr(lycon.load(mkpath('opencv')))
-            np.testing.assert_array_equal(cv_img, lycon_img)
+            # Read using Lycon2
+            lycon2_img = rgb_bgr(lycon2.load(mkpath('opencv')))
+            np.testing.assert_array_equal(cv_img, lycon2_img)
 
     def test_no_nan(self):
         src_img = random_rgb_image()
@@ -78,12 +78,12 @@ class TestAgainstOpenCV(unittest.TestCase):
             for (h, w) in new_shapes:
                 for interp in range(4):
                     cv_resized = cv2.resize(img, (w, h), interpolation=interp)
-                    lycon_resized = lycon.resize(img, width=w, height=h, interpolation=interp)
+                    lycon2_resized = lycon2.resize(img, width=w, height=h, interpolation=interp)
                     self.assertTrue(not np.isnan(np.sum(cv_resized)),
                             'NaN with OpenCV for dtype={}, interp={}, size=({}, {})'.format(
                                 img.dtype, interp, w, h))
-                    self.assertTrue(not np.isnan(np.sum(lycon_resized)),
-                            'NaN with lycon for dtype={}, interp={}, size=({}, {})'.format(
+                    self.assertTrue(not np.isnan(np.sum(lycon2_resized)),
+                            'NaN with lycon2 for dtype={}, interp={}, size=({}, {})'.format(
                                 img.dtype, interp, w, h))
 
     def test_resize(self):
@@ -109,10 +109,10 @@ class TestAgainstOpenCV(unittest.TestCase):
             for (h, w) in new_shapes:
                 for interp in range(4):
                     cv_resized = cv2.resize(img, (w, h), interpolation=interp)
-                    lycon_resized = lycon.resize(img, width=w, height=h, interpolation=interp)
+                    lycon2_resized = lycon2.resize(img, width=w, height=h, interpolation=interp)
                     np.testing.assert_allclose(
                         cv_resized,
-                        lycon_resized,
+                        lycon2_resized,
                         err_msg='Mismatch for dtype={}, interp={}, size=({}, {})'.format(
                             img.dtype, interp, w, h
                         ),

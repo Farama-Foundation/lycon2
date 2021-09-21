@@ -11,12 +11,12 @@ from setuptools import Extension, setup, find_packages
 
 class BuilderError(Exception): pass
 
-class LyconBuilder(build_ext):
+class Lycon2Builder(build_ext):
     """
-    Builds the C++ Lycon extension using CMake.
+    Builds the C++ Lycon2 extension using CMake.
     """
 
-    LYCON_NATIVE_EXETENSION_NAME = '_lycon.so'
+    LYCON2_NATIVE_EXETENSION_NAME = '_lycon2.so'
 
     def locate(self, name):
         """
@@ -67,8 +67,8 @@ class LyconBuilder(build_ext):
         """
         if not os.path.exists(self.build_lib):
             os.makedirs(self.build_lib)
-        src_path = os.path.join(self.build_temp, self.LYCON_NATIVE_EXETENSION_NAME)
-        dst_path = os.path.join(self.build_lib, self.LYCON_NATIVE_EXETENSION_NAME)
+        src_path = os.path.join(self.build_temp, self.LYCON2_NATIVE_EXETENSION_NAME)
+        dst_path = os.path.join(self.build_lib, self.LYCON2_NATIVE_EXETENSION_NAME)
         shutil.move(src_path, dst_path)
 
     def build_extensions(self):
@@ -80,19 +80,19 @@ class LyconBuilder(build_ext):
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
 
-        # Build lycon
+        # Build lycon2
         try:
             self.prepare()
             self.cmake()
             self.make()
             self.move()
         except BuilderError as err:
-            print('\t* Failed to build the Lycon native extension.')
+            print('\t* Failed to build the Lycon2 native extension.')
             print('\t* [Error] {}'.format(err))
             exit(-1)
 
 setup(name='lycon2',
-      version='0.3.0',
+      version='0.3.1',
       description='A minimal and fast image library',
       author='PettingZoo Team',
       author_email='justinkterry@gmail.com',
@@ -107,8 +107,8 @@ setup(name='lycon2',
           'Programming Language :: Python :: 3.9',
           'Programming Language :: Python :: Implementation :: CPython',
       ],
-      cmdclass={'build_ext': LyconBuilder},
-      ext_modules=[Extension('_lycon', ['lycon.placeholder.c'])],
+      cmdclass={'build_ext': Lycon2Builder},
+      ext_modules=[Extension('_lycon2', ['lycon2.placeholder.c'])],
       packages=find_packages(),
       install_requires=['numpy'],
       include_package_data=True,
