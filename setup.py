@@ -92,7 +92,7 @@ class Lycon2Builder(build_ext):
             exit(-1)
 
 setup(name='lycon2',
-      version='0.3.2',
+      version='0.3.3',
       description='A minimal and fast image library',
       author='PettingZoo Team',
       author_email='justinkterry@gmail.com',
@@ -110,7 +110,7 @@ setup(name='lycon2',
       cmdclass={'build_ext': Lycon2Builder},
       ext_modules=[Extension('_lycon2', ['lycon2.placeholder.c'])],
       packages=find_packages(),
-      install_requires=['numpy'],
+      install_requires=['numpy', 'plum-dispatch'],
       include_package_data=True,
       keywords=['Imaging',],
       zip_safe=True,
