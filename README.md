@@ -18,13 +18,13 @@ pip install lycon2
 import lycon2
 
 # Load an image as a numpy array
-img = lycon2.load('mittens.jpg')
+img = lycon2.imread('mittens.jpg')
 # Resize the image using bicubic interpolation
-resized = lycon2.resize(img, width=256, height=512, interpolation=lycon2.Interpolation.CUBIC)
+resized = lycon2.resize(img, (256, 512), interpolation=lycon2.Interpolation.CUBIC)
 # Crop the image (like any regular numpy array)
 cropped = resized[:100, :200]
 # Save the image
-lycon2.save('cropped-mittens.png', cropped)
+lycon2.imwrite('cropped-mittens.png', cropped)
 ```
 
 ## License

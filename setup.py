@@ -92,7 +92,7 @@ class Lycon2Builder(build_ext):
             exit(-1)
 
 setup(name='lycon2',
-      version='0.3.1',
+      version='0.3.2',
       description='A minimal and fast image library',
       author='PettingZoo Team',
       author_email='justinkterry@gmail.com',
