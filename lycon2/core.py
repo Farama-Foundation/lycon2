@@ -4,10 +4,7 @@ import itertools
 
 from .enum import (Decode, Encode, Interpolation)
 
-from numpy import ndarray
 import warnings
-from plum import dispatch
-from typing import Union
 
 def imread(path, flags=Decode.UNCHANGED):
     """
@@ -28,8 +25,7 @@ def imwrite(path, image, options=None):
         options = list(itertools.chain(*options.items()))
     _lycon2.imwrite(path, image, options)
 
-@dispatch
-def resize(image:ndarray, dsize:tuple, interpolation:int=Interpolation.LINEAR, output:Union[ndarray,type(None)]=None):
+def resize(image, dsize, interpolation=Interpolation.LINEAR, output=None):
     """
     Resize the image to the given dimensions, resampled using the given interpolation method.
 
@@ -69,16 +65,4 @@ def save(path, image, options=None):
         # Convert to a flat (key_1, value_1, key_2, value_2, ...) list
         options = list(itertools.chain(*options.items()))
     _lycon2.imwrite(path, image, options)
-
-@dispatch
-def resize(image:ndarray, width:int, height:int, interpolation:int=Interpolation.LINEAR, output:Union[ndarray,type(None)]=None):
-    """
-    Resize the image to the given dimensions, resampled using the given interpolation method.
-
-    If an output ndarray is provided, it must be the same type as the input and have the
-    dimensions of the resized image.
-    """
-    warnings.warn("resize with signature (img, width, height, interp*, output*) is deprecated.\
-                   Please use the OpenCV compatible signature instead.", DeprecationWarning)
-    return resize(image, (width, height), interpolation=interpolation, output=output)
 

@@ -99,3 +99,4 @@ class Interpolation(IntEnum):
 
     # Lanczos interpolation over 8x8 neighborhood
     LANCZOS = 4
+

@@ -14,9 +14,10 @@ static const char* module_name = "_lycon2";
 
 static const char* module_docstring = "Lycon2 image library";
 
-static PyMethodDef module_methods[] = {
-    DECLARE_METHOD(imread), DECLARE_METHOD(imwrite), DECLARE_METHOD(resize),
-    DECLARE_METHOD(load), DECLARE_METHOD(save), {NULL, NULL, 0, NULL}};
+static PyMethodDef module_methods[] = {DECLARE_METHOD(imread),
+				       DECLARE_METHOD(imwrite),
+				       DECLARE_METHOD(resize),
+				       {NULL, NULL, 0, NULL}};
 
 #if PY_MAJOR_VERSION >= 3
 
