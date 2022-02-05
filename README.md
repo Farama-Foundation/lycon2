@@ -1,3 +1,5 @@
+# This project is no longer being mainted and we encourage users to use https://github.com/Farama-Foundation/tinyscaler instead
+
 # Lycon2
 
 A maintained fork of [lycon](https://github.com/ethereon/lycon), a minimal and fast image library for Python and C++.
