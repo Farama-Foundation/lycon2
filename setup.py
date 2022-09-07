@@ -95,7 +95,7 @@ setup(name='lycon2',
       version='0.3.4',
       description='A minimal and fast image library',
       author='PettingZoo Team',
-      author_email='justinkterry@gmail.com',
+      author_email='jkterry0@gmail.com',
       url='https://github.com/PettingZoo-Team/lycon2',
       classifiers=[
           'Development Status :: 4 - Beta',
